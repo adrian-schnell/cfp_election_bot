@@ -9,8 +9,8 @@ use Carbon\Carbon;
  * @mixin \Eloquent
  * @property string telegramId
  * @property string firstName
- * @property string lastName
  * @property string username
+ * @property string result_qty
  * @property Carbon created_at
  * @property Carbon updated_at
  */
@@ -19,8 +19,8 @@ class TelegramUser extends Model
     protected $fillable = [
         'telegramId',
         'firstName',
-        'lastName',
         'username',
+        'result_qty',
     ];
     protected $hidden = [
         'id',
