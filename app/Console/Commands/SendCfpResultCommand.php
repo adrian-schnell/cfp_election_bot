@@ -42,7 +42,7 @@ class SendCfpResultCommand extends Command
             $recipients,
             sprintf(
                 "*last update*: %s",
-                $cfpResults->first()->updated_at->format('H:i - d.m.Y')
+                CfpResult::orderByDesc('updated_at')->first()->updated_at->format('H:i - d.m.Y')
             ),
             ['parse_mode' => 'Markdown']
         );

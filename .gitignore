@@ -16,3 +16,6 @@ yarn-error.log
 /.config/psysh/psysh_history
 /.phpstorm.meta.php
 /_ide_helper.php
+/.run/TelegramUserRepositoryTest.test_daily_once.run.xml
+/.run/TelegramUserRepositoryTest.test_daily_twice.run.xml
+/.run/TelegramUserRepositoryTest.test_example.run.xml
