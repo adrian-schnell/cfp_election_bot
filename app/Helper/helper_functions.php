@@ -6,8 +6,8 @@ if (!function_exists('voting_result_bar')) {
 
         return sprintf(
             '\[%s%s] %s',
-            str_repeat('Y', $progress / 4),
-            str_repeat('n', (100 - $progress) / 4),
+            str_repeat('🟩', $progress / 8),
+            str_repeat('🟥', (100 - $progress) / 8),
             $progress . '% agree'
         );
     }

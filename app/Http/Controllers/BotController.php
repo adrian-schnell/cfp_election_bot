@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\BotConversations\ResultConversation;
 use App\BotConversations\SettingsConversation;
 use App\BotConversations\SetupConversation;
 use App\Models\Service\TelegramUserService;
@@ -15,7 +16,8 @@ class BotController extends Controller
         $botman = app('botman');
         $botman->hears('/start', function (Botman $botman) use ($telegramUserService) {
             if ($telegramUserService->isNewUser($botman->getUser())) {
-                $botman->startConversation(new SetupConversation());
+                $telegramUser = $telegramUserService->getTelegramUser($botman->getUser());
+                $botman->startConversation(new SetupConversation($telegramUser));
             }
             $botman->startConversation(new SettingsConversation($telegramUserService->getTelegramUser($botman->getUser())));
         });
@@ -23,9 +25,12 @@ class BotController extends Controller
             $botman->startConversation(new SettingsConversation($telegramUserService->getTelegramUser($botman->getUser())));
         });
 
-        $botman->hears('/current_result {?[0-9]*}', function (Botman $botman) use ($telegramUserService) {
-            $botman->startConversation(new SettingsConversation($telegramUserService->getTelegramUser($botman->getUser())));
-        })->skipsConversation();
+        $botman->hears('/cfp ([0-9]+)', function (Botman $botman, $cfpGithubId) use ($telegramUserService) {
+            $botman->startConversation(new ResultConversation($cfpGithubId));
+        });
+        $botman->hears('/cfp_all', function (Botman $botman) use ($telegramUserService) {
+            $botman->startConversation(new ResultConversation());
+        });
 
         $botman->listen();
     }

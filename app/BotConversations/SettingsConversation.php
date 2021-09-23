@@ -32,6 +32,7 @@ class SettingsConversation extends Conversation
                 Button::create('morning, noon, evening')->value(ResultQtyEnum::DAILY_3),
                 Button::create('morning, evening')->value(ResultQtyEnum::DAILY_2),
                 Button::create('morning')->value(ResultQtyEnum::DAILY_1),
+                Button::create('only on demand')->value(ResultQtyEnum::ON_DEMAND),
             ]);
 
         $this->ask($question, function (Answer $answer) {
@@ -45,6 +46,7 @@ class SettingsConversation extends Conversation
                 'result_qty' => $answer->getValue(),
             ]);
             $this->say('Your CFP election party is setup now. Enjoy the show. 🥳');
+            $this->say('Get on demand a specific CFP with `/cfp GITHUB_ID` or all with `/cfp_all`', ['parse_mode'=>'Markdown']);
             $this->say('_Hint_: you can change this setting with the `/settings` command', [
                 'parse_mode' => 'Markdown',
             ]);

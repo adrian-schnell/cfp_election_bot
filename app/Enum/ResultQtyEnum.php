@@ -9,4 +9,5 @@ class ResultQtyEnum
     const DAILY_3 = '3_daily';
     const DAILY_2 = '2_daily';
     const DAILY_1 = 'daily';
+    const ON_DEMAND = 'none';
 }
