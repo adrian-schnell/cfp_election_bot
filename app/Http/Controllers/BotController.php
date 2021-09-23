@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\BotConversations\SettingsConversation;
 use App\BotConversations\SetupConversation;
 use App\Models\Service\TelegramUserService;
 use BotMan\BotMan\BotMan;
@@ -14,9 +15,12 @@ class BotController extends Controller
         $botman = app('botman');
         $botman->hears('/start', function (Botman $botman) use ($telegramUserService) {
             if ($telegramUserService->isNewUser($botman->getUser())) {
-        ray($telegramUserService->getTelegramUser($botman->getUser()));
-                $botman->startConversation(new SetupConversation($telegramUserService->getTelegramUser($botman->getUser())));
+                $botman->startConversation(new SetupConversation());
             }
+            $botman->startConversation(new SettingsConversation($telegramUserService->getTelegramUser($botman->getUser())));
+        });
+        $botman->hears('/settings', function (Botman $botman) use ($telegramUserService) {
+            $botman->startConversation(new SettingsConversation($telegramUserService->getTelegramUser($botman->getUser())));
         });
 
         $botman->listen();
