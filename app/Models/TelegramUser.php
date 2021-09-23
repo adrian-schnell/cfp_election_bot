@@ -2,6 +2,7 @@
 
 namespace App\Models;
 
+use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Carbon\Carbon;
 
@@ -16,6 +17,8 @@ use Carbon\Carbon;
  */
 class TelegramUser extends Model
 {
+    use HasFactory;
+
     protected $fillable = [
         'telegramId',
         'firstName',
