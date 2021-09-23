@@ -17,7 +17,9 @@ class Kernel extends ConsoleKernel
     protected function schedule(Schedule $schedule): void
     {
         $schedule->command('update:cfp_result')->everyTenMinutes()->withoutOverlapping();
-        $schedule->command('cfp_result:send_updates')->everyFifteenMinutes()->withoutOverlapping();
+        $schedule->command('cfp_result:send_updates')
+            ->everyFifteenMinutes()
+            ->withoutOverlapping();
     }
 
     protected function commands(): void

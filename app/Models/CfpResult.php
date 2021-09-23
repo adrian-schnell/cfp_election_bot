@@ -15,6 +15,7 @@ use Illuminate\Database\Eloquent\Model;
  * @property integer possible_votes
  * @property float   vote_turnout
  * @property string  current_result
+ * @property string  github_uri
  */
 class CfpResult extends Model
 {
@@ -29,4 +30,15 @@ class CfpResult extends Model
         'vote_turnout',
         'current_result',
     ];
+    protected $appends = ['github_uri'];
+    protected $hidden = [
+        'id',
+        'created_at',
+        'updated_at',
+    ];
+
+    public function getGitHubUriAttribute(): string
+    {
+        return sprintf('https://github.com/DeFiCh/dfips/issues/%s', $this->github_issue_id);
+    }
 }
