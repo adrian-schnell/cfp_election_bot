@@ -2,7 +2,6 @@
 
 namespace App\Http\Service;
 
-use App\Models\TelegramUser;
 use BotMan\BotMan\BotMan;
 use BotMan\BotMan\Exceptions\Base\BotManException;
 use BotMan\Drivers\Telegram\TelegramDriver;
@@ -13,17 +12,17 @@ class TelegramMessageService
 {
     protected BotMan $botman;
 
-    public function __construct(BotMan $bot)
+    public function __construct()
     {
-        $this->botman = $bot;
+        $this->botman = app('botman');
     }
 
-    public function sendMessage(TelegramUser $user, string $message, array $param = ['parse_mode' => 'Markdown']): bool
+    public function sendMessage(array $users, string $message, array $param = ['parse_mode' => 'Markdown']): bool
     {
         try {
             $this->botman->say(
                 $this->escapeMessage($message),
-                $user->telegramId,
+                $users,
                 TelegramDriver::class,
                 $param
             );
@@ -31,10 +30,9 @@ class TelegramMessageService
             return true;
         } catch (BotManException $e) {
             Log::error('sending botman message failed', [
-                'message'          => $e->getMessage(),
-                'line'             => $e->getLine(),
-                'telegram_user_id' => $user->id,
-                'message_to_user'  => $message,
+                'message'         => $e->getMessage(),
+                'line'            => $e->getLine(),
+                'message_to_user' => $message,
             ]);
 
             return false;

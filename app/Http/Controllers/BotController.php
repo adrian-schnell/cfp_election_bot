@@ -23,6 +23,10 @@ class BotController extends Controller
             $botman->startConversation(new SettingsConversation($telegramUserService->getTelegramUser($botman->getUser())));
         });
 
+        $botman->hears('/current_result {?[0-9]*}', function (Botman $botman) use ($telegramUserService) {
+            $botman->startConversation(new SettingsConversation($telegramUserService->getTelegramUser($botman->getUser())));
+        })->skipsConversation();
+
         $botman->listen();
     }
 }

@@ -45,6 +45,9 @@ class SettingsConversation extends Conversation
                 'result_qty' => $answer->getValue(),
             ]);
             $this->say('Your CFP election party is setup now. Enjoy the show. 🥳');
+            $this->say('_Hint_: you can change this setting with the `/settings` command', [
+                'parse_mode' => 'Markdown',
+            ]);
         });
     }
 }
