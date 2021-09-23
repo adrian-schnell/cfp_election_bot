@@ -25,10 +25,10 @@ class BotController extends Controller
             $botman->startConversation(new SettingsConversation($telegramUserService->getTelegramUser($botman->getUser())));
         });
 
-        $botman->hears('/cfp ([0-9]+)', function (Botman $botman, $cfpGithubId) use ($telegramUserService) {
+        $botman->hears('/cfp ([0-9]+)', function (Botman $botman, $cfpGithubId) {
             $botman->startConversation(new ResultConversation($cfpGithubId));
         });
-        $botman->hears('/cfp_all', function (Botman $botman) use ($telegramUserService) {
+        $botman->hears('/cfp_all', function (Botman $botman) {
             $botman->startConversation(new ResultConversation());
         });
 

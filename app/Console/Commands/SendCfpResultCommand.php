@@ -7,6 +7,7 @@ use App\Models\CfpResult;
 use App\Models\Repository\CfpMessageRepository;
 use App\Models\Repository\TelegramUserRepository;
 use App\Models\TelegramUser;
+use Carbon\Carbon;
 use Illuminate\Console\Command;
 
 class SendCfpResultCommand extends Command
@@ -52,7 +53,10 @@ class SendCfpResultCommand extends Command
     {
         // inform users onetime after voting started
         $cacheKeyVotingStarted = sprintf('voting_%s_started', config('cfp_settings.cfp_round'));
-        if (now() >= config('cfp_settings.start_date') && !cache($cacheKeyVotingStarted, false)) {
+        $startDate = config('cfp_settings.start_date');
+        if (now() >= $startDate
+            && now()->diffInMinutes(Carbon::parse($startDate)) < 30
+            && !cache($cacheKeyVotingStarted, false)) {
             $this->info('voting started info to all users');
             $votingStartedRecipients = TelegramUser::all()->pluck('telegramId')->toArray();
             $messageService->sendMessage(
