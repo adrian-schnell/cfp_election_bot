@@ -43,15 +43,6 @@ class SendCfpResultCommand extends Command
                 ['disable_web_page_preview' => true, 'parse_mode' => 'Markdown']
             );
         }
-
-        $messageService->sendMessage(
-            $recipients->pluck('telegramId')->toArray(),
-            sprintf(
-                "*last update*: %s",
-                CfpResult::orderByDesc('updated_at')->first()->updated_at->format('H:i - d.m.Y')
-            ),
-            ['parse_mode' => 'Markdown']
-        );
     }
 
     protected function checkVotingStarted(TelegramMessageService $messageService): bool
