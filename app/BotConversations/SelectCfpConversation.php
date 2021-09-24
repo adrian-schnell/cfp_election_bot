@@ -25,7 +25,8 @@ class SelectCfpConversation extends \BotMan\BotMan\Messages\Conversations\Conver
         $this->bot->types();
         $this->say("🔎 Get only the results for CFP you\'re interested in. Pick the IDs listed below and send them comma separated. Invalid values will be stripped out.");
         $this->bot->typesAndWaits(1);
-        $this->say($this->prepareCfpOverviewMessage(), ['parse_mode' => 'Markdown']);
+        $this->say($this->prepareCfpOverviewMessage(),
+            ['parse_mode' => 'Markdown', 'disable_web_page_preview' => true]);
         $this->ask('Enter your CFP wishlist (comma separated!), send `all` to receive all CFP results!:',
             function (Answer $answer) {
                 $answerMessage = $answer->getMessage()->getText();

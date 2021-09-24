@@ -37,7 +37,8 @@ class SendCfpResultCommand extends Command
 
         $messageService->sendMessage(
             $recipients,
-            $message
+            $message,
+            ['disable_web_page_preview' => true, 'parse_mode' => 'Markdown']
         );
         $messageService->sendMessage(
             $recipients,
