@@ -12,14 +12,15 @@ class CfpMessageRepository
         $message = '';
         $cfpResults->each(function (CfpResult $cfpResult) use (&$message) {
             $message .= sprintf(
-                "\r\n#%s: [%s](%s):\r\n%s\r\n(currently %s - %sx Yes, %sx No)\r\n\r\n",
+                "\r\n#%s: [%s](%s):\r\n%s\r\n(currently %s - %sx Yes, %sx No, %sx neutral)\r\n\r\n",
                 $cfpResult->github_issue_id,
                 $cfpResult->title,
                 $cfpResult->github_uri,
                 voting_result_bar($cfpResult->yes, $cfpResult->no),
                 $cfpResult->current_result === 'Approved' ? 'accepted ✅' : 'not accepted ❌',
                 $cfpResult->yes,
-                $cfpResult->no
+                $cfpResult->no,
+                $cfpResult->neutral
             );
         });
 
