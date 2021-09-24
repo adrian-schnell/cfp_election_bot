@@ -41,7 +41,7 @@ class ResultConversation extends Conversation
             return;
         }
         $this->say(
-            app(CfpMessageRepository::class)->getMessageFromCollection($cfp),
+            app(CfpMessageRepository::class)->getMessageFromCollection($cfp, []),
             [
                 'parse_mode'               => 'Markdown',
                 'disable_web_page_preview' => true,

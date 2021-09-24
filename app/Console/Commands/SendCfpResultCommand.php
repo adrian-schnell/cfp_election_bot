@@ -26,22 +26,26 @@ class SendCfpResultCommand extends Command
         }
 
         $cfpResults = CfpResult::orderBy('github_issue_id')->get();
-        $recipients = $repository->getUsersForCurrentTime()->pluck('telegramId')->toArray();
+        $recipients = $repository->getUsersForCurrentTime();
         if (count($recipients) === 0) {
             $this->info('no recipients selected');
 
             return;
         }
 
-        $message = $messageRepository->getMessageFromCollection($cfpResults);
+        // send cfp results for each user, depending on it's CFP selection
+        foreach ($recipients as $recipient) {
+            /** @var TelegramUser $recipient */
+            $message = $messageRepository->getMessageFromCollection($cfpResults, $recipient->cfp_selection);
+            $messageService->sendMessage(
+                [$recipient->telegramId],
+                $message,
+                ['disable_web_page_preview' => true, 'parse_mode' => 'Markdown']
+            );
+        }
 
         $messageService->sendMessage(
-            $recipients,
-            $message,
-            ['disable_web_page_preview' => true, 'parse_mode' => 'Markdown']
-        );
-        $messageService->sendMessage(
-            $recipients,
+            $recipients->pluck('telegramId')->toArray(),
             sprintf(
                 "*last update*: %s",
                 CfpResult::orderByDesc('updated_at')->first()->updated_at->format('H:i - d.m.Y')
