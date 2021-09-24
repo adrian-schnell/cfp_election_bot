@@ -22,7 +22,7 @@ class SetupConversation extends Conversation
     {
         $message = sprintf("🥳🥳🥳 *Hi %s to the DeFiChain CFP Election Party* 🥳🥳🥳", $this->telegramUser->firstName);
         $message .= sprintf(
-            "\r\n\r\nCurrently the *%s voting round* is running until %s with %s active CFP.",
+            "\r\n\r\nThe *%s voting round* is running until %s with %s active CFP.",
             config('cfp_settings.cfp_round'),
             Carbon::parse(config('cfp_settings.end_date'))->format('H:i d.m.Y'),
             CfpResult::count()
