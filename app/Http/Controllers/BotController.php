@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\BotConversations\ResultConversation;
+use App\BotConversations\SelectCfpConversation;
 use App\BotConversations\SettingsConversation;
 use App\BotConversations\SetupConversation;
 use App\Models\Service\TelegramUserService;
@@ -30,6 +31,9 @@ class BotController extends Controller
         });
         $botman->hears('/cfp_all', function (Botman $botman) {
             $botman->startConversation(new ResultConversation());
+        });
+        $botman->hears('/select_cfp', function (Botman $botman) use ($telegramUserService) {
+            $botman->startConversation(new SelectCfpConversation($telegramUserService->getTelegramUser($botman->getUser())));
         });
 
         $botman->listen();
