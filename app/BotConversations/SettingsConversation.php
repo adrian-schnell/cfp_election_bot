@@ -45,11 +45,7 @@ class SettingsConversation extends Conversation
             $this->telegramUser->update([
                 'result_qty' => $answer->getValue(),
             ]);
-            $this->say('Your CFP election party is setup now. Enjoy the show. 🥳');
-            $this->say('Get on demand a specific CFP with `/cfp GITHUB_ID` or all with `/cfp_all`', ['parse_mode'=>'Markdown']);
-            $this->say('_Hint_: you can change this setting with the `/settings` command', [
-                'parse_mode' => 'Markdown',
-            ]);
+            $this->bot->startConversation(new SelectCfpConversation($this->telegramUser, true));
         });
     }
 }
