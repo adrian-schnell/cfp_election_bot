@@ -2,6 +2,7 @@
 
 namespace App\Console;
 
+use App\Console\Commands\ResetCfpVotingRoundCommand;
 use App\Console\Commands\SendCfpResultCommand;
 use App\Console\Commands\UpdateCfpResultCommand;
 use Illuminate\Console\Scheduling\Schedule;
@@ -10,8 +11,9 @@ use Illuminate\Foundation\Console\Kernel as ConsoleKernel;
 class Kernel extends ConsoleKernel
 {
     protected $commands = [
-        UpdateCfpResultCommand::class,
-        SendCfpResultCommand::class,
+	    UpdateCfpResultCommand::class,
+	    SendCfpResultCommand::class,
+	    ResetCfpVotingRoundCommand::class,
     ];
 
     protected function schedule(Schedule $schedule): void
