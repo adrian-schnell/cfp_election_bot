@@ -25,6 +25,11 @@ class SettingsConversation extends Conversation
      */
     public function run(): void
     {
+        // skip this conversation after the last voting round
+        if (now() > config('cfp_settings.end_date')) {
+            return;
+        }
+
         $question = Question::create('How often would you like to receive the latest results?')
             ->addButtons([
                 Button::create('every 15min')->value(ResultQtyEnum::MIN_15),

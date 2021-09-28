@@ -10,6 +10,10 @@ class TelegramUserRepository
 {
     public function getUsersForCurrentTime(): Collection
     {
+        if (now() > config('cfp_settings.end_date')) {
+            return TelegramUser::all();
+        }
+
         if (now()->minute !== 0) {
             return TelegramUser::where('result_qty', ResultQtyEnum::MIN_15)->get();
         }
