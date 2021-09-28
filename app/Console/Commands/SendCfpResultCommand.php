@@ -85,6 +85,7 @@ class SendCfpResultCommand extends Command
                     ['parse_mode' => 'Markdown']
                 );
                 cache([$cacheKeyVotingEnded => true]);
+                return false;
             }
             $this->info('voting ended info to all users');
 
