@@ -20,7 +20,7 @@ class CfpResultService
      */
     public function getAllCurrentCfp(): array
     {
-        $response = $this->client->get('all');
+        $response = $this->client->get('latest');
 
         return json_decode($response->getBody()->getContents(), true);
     }
