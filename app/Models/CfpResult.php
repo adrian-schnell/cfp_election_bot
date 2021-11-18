@@ -8,6 +8,7 @@ use Illuminate\Database\Eloquent\Model;
  * @mixin \Eloquent
  * @property string  title
  * @property integer github_issue_id
+ * @property string type
  * @property integer yes
  * @property integer no
  * @property integer neutral
@@ -22,6 +23,7 @@ class CfpResult extends Model
     protected $fillable = [
         'title',
         'github_issue_id',
+        'type',
         'yes',
         'no',
         'neutral',
