@@ -50,8 +50,7 @@ class SendCfpResultCommand extends Command
 		// inform users onetime after voting started
 		$cacheKeyVotingStarted = sprintf('voting_%s_started', config('cfp_settings.cfp_round'));
 		$startDate = config('cfp_settings.start_date');
-		if (now() >= $startDate
-			&& now()->diffInMinutes(Carbon::parse($startDate)) < 30) {
+		if (now() >= $startDate) {
 
 			if (!cache($cacheKeyVotingStarted, false)) {
 				$this->info('voting started info to all users');
