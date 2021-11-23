@@ -52,18 +52,18 @@ class SendCfpResultCommand extends Command
 		$startDate = config('cfp_settings.start_date');
 		if (now() >= $startDate) {
 
-			if (!cache($cacheKeyVotingStarted, false) || now()->diffInMinutes(Carbon::parse($startDate)) < 30) {
-				$this->info('voting started info to all users');
-				$votingStartedRecipients = TelegramUser::all()->pluck('telegramId')->toArray();
-				$messageService->sendMessage(
-					$votingStartedRecipients,
-					sprintf("*Yehaa* - the new CFP Votings *%s* just started!\r\n\r\nSelect the CFP/DFIP you want to monitor with the command /settings",
-						config
-						('cfp_settings.cfp_round')),
-					['parse_mode' => 'Markdown']
-				);
-				cache([$cacheKeyVotingStarted => true]);
-			}
+//			if (!cache($cacheKeyVotingStarted, false) || now()->diffInMinutes(Carbon::parse($startDate)) < 30) {
+//				$this->info('voting started info to all users');
+//				$votingStartedRecipients = TelegramUser::all()->pluck('telegramId')->toArray();
+//				$messageService->sendMessage(
+//					$votingStartedRecipients,
+//					sprintf("*Yehaa* - the new CFP Votings *%s* just started!\r\n\r\nSelect the CFP/DFIP you want to monitor with the command /settings",
+//						config
+//						('cfp_settings.cfp_round')),
+//					['parse_mode' => 'Markdown']
+//				);
+//				cache([$cacheKeyVotingStarted => true]);
+//			}
 
 			return true;
 		}
