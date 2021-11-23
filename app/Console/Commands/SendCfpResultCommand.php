@@ -52,7 +52,7 @@ class SendCfpResultCommand extends Command
 		$startDate = config('cfp_settings.start_date');
 		if (now() >= $startDate) {
 
-			if (!cache($cacheKeyVotingStarted, false) && now()->diffInMinutes(Carbon::parse($startDate)) < 30) {
+			if (!cache($cacheKeyVotingStarted, false) || now()->diffInMinutes(Carbon::parse($startDate)) < 30) {
 				$this->info('voting started info to all users');
 				$votingStartedRecipients = TelegramUser::all()->pluck('telegramId')->toArray();
 				$messageService->sendMessage(
