@@ -70,7 +70,7 @@ class SelectCfpConversation extends Conversation
             'parse_mode' => 'Markdown',
         ]);
         $this->bot->typesAndWaits(2);
-        $this->say("Brought you by [@adrian_schnell](https://t.me/adrian_schnell) & API Services by DFX ❤️\r\n\r\nCheck a visual overview on [Masternode Monitor](https://next.defichain-masternode-monitor.com//#/votings)",
+        $this->say("Brought you by [DFI Signal](https://dfi-signal.com) & API Services by DFX ❤️\r\n\r\nCheck a visual overview on [Masternode Monitor](https://next.defichain-masternode-monitor.com//#/votings)",
             [
                 'parse_mode'               => 'Markdown',
                 'disable_web_page_preview' => true,
