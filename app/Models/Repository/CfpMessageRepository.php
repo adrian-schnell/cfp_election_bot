@@ -7,17 +7,17 @@ use Illuminate\Support\Collection;
 
 class CfpMessageRepository
 {
-    public function getMessageFromCollection(Collection $cfpResults, array $cfpSelection): string
+    public function getMessageFromCollection(Collection $cfpResults, array $cfpSelection): array
     {
         if (count($cfpSelection) === 0) {
             $cfpSelection = $cfpResults->pluck('github_issue_id')->toArray();
         }
-        $message = '';
+        $message = [];
         $cfpResults->each(function (CfpResult $cfpResult) use (&$message, $cfpSelection) {
             if (!in_array($cfpResult->github_issue_id, $cfpSelection)) {
                 return;
             }
-            $message .= sprintf(
+            $message[] = sprintf(
                 "\r\n*#%s %s*: [%s](%s):\r\n%s\r\n(%s%s - %sx Yes, %sx No, %sx neutral)\r\n\r\n",
                 $cfpResult->type,
                 $cfpResult->github_issue_id,
