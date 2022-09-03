@@ -53,9 +53,9 @@ class ResultConversation extends Conversation
 				);
 
 				$message = $result;
+			} else {
+				$message .= $result;
 			}
-
-			$message .= $result;
 		}
 
 		if (strlen($message) > 0) {

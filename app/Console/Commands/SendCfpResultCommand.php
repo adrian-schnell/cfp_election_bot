@@ -36,12 +36,29 @@ class SendCfpResultCommand extends Command
 		// send cfp results for each user, depending on it's CFP selection
 		foreach ($recipients as $recipient) {
 			/** @var TelegramUser $recipient */
-			$message = $messageRepository->getMessageFromCollection($cfpResults, $recipient->cfp_selection);
-			$messageService->sendMessage(
-				[$recipient->telegramId],
-				$message,
-				['disable_web_page_preview' => true, 'parse_mode' => 'Markdown']
-			);
+			$array = $messageRepository->getMessageFromCollection($cfpResults, $recipient->cfp_selection);
+			$message = '';
+			foreach ($array as $result) {
+				if (strlen($message) + strlen($result) > 4000) {
+					$messageService->sendMessage(
+						[$recipient->telegramId],
+						$message,
+						['disable_web_page_preview' => true, 'parse_mode' => 'Markdown']
+					);
+
+					$message = $result;
+				} else {
+					$message .= $result;
+				}
+			}
+
+			if (strlen($message) > 0) {
+				$messageService->sendMessage(
+					[$recipient->telegramId],
+					$message,
+					['disable_web_page_preview' => true, 'parse_mode' => 'Markdown']
+				);
+			}
 		}
 	}
 
