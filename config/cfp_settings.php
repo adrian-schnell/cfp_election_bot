@@ -1,7 +1,7 @@
 <?php
 
 return [
-    'start_date' => '2022-08-29 23:59:59',
-    'end_date'   => '2022-09-05 23:59:59',
-    'cfp_round'  => 'August 2022',
+    'start_date' => '2022-11-14 23:59:59',
+    'end_date'   => '2022-11-21 23:59:59',
+    'cfp_round'  => 'November 2022',
 ];
